@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web:
+    build: 
+      context: .  #where to find all the files
+      dockerfile:  Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules #dont try to map the nodue_modules file
+      - .:/app #map current working directory to the app folder inside the container
+  tests:
+    build: 
+      context: .  #where to find all the files
+      dockerfile:  Dockerfile.dev
+    volumes:
+      - /app/node_modules 
+      - .:/app 
+    command: ["npm", "run", "test"]
